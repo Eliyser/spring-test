@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+        ">
+
+    <!--Job类-->
+    <bean id="myJob" class="com.haien.test.scheduler.MyJob" />
+
+    <!--JobDetail类：配置MethodInvokingJobDetailFactoryBean-->
+    <bean id="myJobDetail"
+       class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <!--Job实例-->
+        <property name="targetObject" ref="myJob" />
+        <!--Job实例方法名-->
+        <property name="targetMethod" value="testMethod" />
+        <property name="concurrent" value="false" />
+    </bean>
+
+    <!--定时器：配置定时表达式-->
+    <bean id="testTaskTrigger"
+          class="org.springframework.scheduling.quartz.CronTriggerFactoryBean" >
+        <property name="jobDetail" ref="myJobDetail" />
+        <!--每分钟执行一次-->
+        <property name="cronExpression" value="0 0/1 * * * ?" />
+    </bean>
+
+    <!--调度器-->
+    <bean id="testSchedulerFactoryBean"
+          class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <list><ref bean="testTaskTrigger" /></list>
+        </property>
+    </bean>
+
+</beans>

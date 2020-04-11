@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="error">
+    <properties>
+        <property name="FORMAT">%d{HH:mm:ss.SSS} [%t] %-5p [%c] - %m%n</property>
+    </properties>
+    <Appenders>
+        <Console name="Console">
+            <PatternLayout pattern="${FORMAT}"/>
+        </Console>
+    </Appenders>
+
+    <Loggers>
+        <AsyncRoot level="info">
+            <appender-ref ref="Console"/>
+        </AsyncRoot>
+
+        <AsyncLogger name="org.springframework" level="info" additivity="false"></AsyncLogger>
+    </Loggers>
+</Configuration>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
